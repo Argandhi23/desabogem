@@ -3,33 +3,40 @@
 
 @layer base {
   :root {
-    --primary: #166534; /* Emerald 800 */
-    --primary-hover: #14532d; /* Emerald 900 */
-    --primary-light: #dcfce7; /* Emerald 100 */
-    --secondary: #0284c7; /* Sky 600 */
-    --accent: #f59e0b; /* Amber 500 */
-    --background: #f8fafc;
-    --surface: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
+    --primary: #1F4D2C; /* Deep Forest Agrarian Green */
+    --primary-dark: #173C22;
+    --primary-hover: #296338;
+    --primary-light: #EAF2EB;
+    --secondary: #3D6E4B;
+    --secondary-light: #F0F5F1;
+    --gold: #C89726; /* Golden Harvest Padi Accent */
+    --gold-light: #FDF6E2;
+    --background: #F8F7F2; /* Warm Rice White */
+    --surface: #FFFFFF;
+    --surface-soft: #F4F2EB;
+    --text-main: #1A261D; /* Deep Forest Charcoal */
+    --text-muted: #526356;
+    --border: #E2E0D4;
+    --border-light: #ECEAE0;
   }
 
   body {
     background-color: var(--background);
     color: var(--text-main);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Custom styles for Tiptap editor in admin panel */
+/* Custom styles for Tiptap visual editor */
 .tiptap {
   outline: none;
   min-height: 220px;
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-  color: #94a3b8;
+  color: #8c9c90;
   content: attr(data-placeholder);
   float: left;
   height: 0;
