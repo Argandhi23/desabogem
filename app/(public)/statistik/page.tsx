@@ -3,19 +3,15 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   BarChart3,
-  Users,
-  Home,
-  MapPin,
   Briefcase,
   GraduationCap,
   Building,
   HeartPulse,
   ArrowLeft,
-  Sparkles,
   TrendingUp,
+  Home,
 } from 'lucide-react'
 import { getStatistikDesa } from '@/lib/supabase/queries/public'
-import { formatDate } from '@/utils/formatters'
 import type { StatistikDesa } from '@/types/database'
 
 export const metadata: Metadata = {
@@ -44,28 +40,28 @@ export default async function PublicStatistikPage() {
   return (
     <div className="space-y-16 pb-24">
       {/* 1. Header Banner */}
-      <section className="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 text-white py-16 sm:py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+      <section className="relative bg-gradient-to-br from-[#173C22] via-[#1F4D2C] to-[#122E1A] text-white py-16 sm:py-20 overflow-hidden border-b border-[#296338]">
+        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex items-center gap-2 text-emerald-300 text-xs sm:text-sm font-medium mb-4">
+          <div className="flex items-center gap-2 text-[#D3E2D6] text-xs sm:text-sm font-medium mb-4">
             <Link href="/" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" />
               <span>Beranda</span>
             </Link>
             <span>/</span>
-            <span className="text-white">Data & Statistik</span>
+            <span className="text-[#C89726]">Data & Statistik</span>
           </div>
 
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-700/60 border border-emerald-500/30 text-emerald-200 text-xs font-semibold">
-              <BarChart3 className="w-3.5 h-3.5" />
-              <span>Transparansi Data Desa</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#173C22]/90 border border-[#3D6E4B] text-[#EAF2EB] text-xs font-semibold">
+              <BarChart3 className="w-3.5 h-3.5 text-[#C89726]" />
+              <span>Transparansi Data & Demografi</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Statistik & Demografi Desa Bogem
+              Statistik Kependudukan Desa Bogem
             </h1>
-            <p className="text-emerald-100 text-sm sm:text-base leading-relaxed">
-              Ringkasan data kependudukan, potensi pertanian, dan fasilitas publik di Desa Bogem, Kec. Kawedanan, Kab. Magetan.
+            <p className="text-[#EAF2EB]/90 text-sm sm:text-base leading-relaxed">
+              Ringkasan data kependudukan, potensi agraris pertanian, dan fasilitas publik di Desa Bogem, Kec. Kawedanan, Kab. Magetan.
             </p>
           </div>
         </div>
@@ -75,10 +71,10 @@ export default async function PublicStatistikPage() {
         {/* 2. Grid Indikator Statistik Utama */}
         <div className="space-y-6">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#1F4D2C]">
               Indikator Kependudukan
             </span>
-            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-1">
+            <h2 className="text-2xl font-extrabold text-[#1A261D] tracking-tight mt-1">
               Data Statistik Utama
             </h2>
           </div>
@@ -87,23 +83,23 @@ export default async function PublicStatistikPage() {
             {statsList.map((item) => (
               <div
                 key={item.id}
-                className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3 hover:border-emerald-500 hover:shadow-md transition-all"
+                className="bg-white p-6 rounded-2xl border border-[#E2E0D4] shadow-xs flex flex-col justify-between space-y-3 hover:border-[#1F4D2C] hover:shadow-md transition-all"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500">{item.label}</span>
-                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                  <span className="text-xs font-bold text-[#526356]">{item.label}</span>
+                  <div className="w-8 h-8 rounded-xl bg-[#EAF2EB] text-[#1F4D2C] flex items-center justify-center">
                     <TrendingUp className="w-4 h-4" />
                   </div>
                 </div>
                 <div>
-                  <p className="text-3xl font-extrabold text-slate-900">
+                  <p className="text-3xl font-extrabold text-[#1A261D]">
                     {item.nilai}{' '}
                     {item.satuan && (
-                      <span className="text-xs font-normal text-slate-500">{item.satuan}</span>
+                      <span className="text-xs font-semibold text-[#C89726]">{item.satuan}</span>
                     )}
                   </p>
                 </div>
-                <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-400">
+                <div className="pt-2 border-t border-[#E2E0D4]/60 text-[11px] text-[#526356]">
                   Pemerintah Desa Bogem
                 </div>
               </div>
@@ -114,107 +110,107 @@ export default async function PublicStatistikPage() {
         {/* 3. Sektor Mata Pencaharian & Potensi Desa */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Card Mata Pencaharian */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl border border-[#E2E0D4] p-6 sm:p-8 shadow-xs space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-[#EAF2EB] text-[#1F4D2C] flex items-center justify-center">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-lg text-slate-900">Mata Pencaharian Warga</h3>
-                <p className="text-xs text-slate-500">Distribusi sektor pekerjaan utama di Desa Bogem</p>
+                <h3 className="font-bold text-lg text-[#1A261D]">Mata Pencaharian Warga</h3>
+                <p className="text-xs text-[#526356]">Distribusi sektor pekerjaan utama di Desa Bogem</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-bold text-[#1A261D] mb-1.5">
                   <span>Petani & Buruh Tani</span>
-                  <span>65%</span>
+                  <span className="text-[#1F4D2C] font-extrabold">65%</span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-600 rounded-full w-[65%]" />
+                <div className="w-full h-3 bg-[#F8F7F2] border border-[#E2E0D4] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#1F4D2C] rounded-full w-[65%]" />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-bold text-[#1A261D] mb-1.5">
                   <span>Pedagang & Pelaku UMKM</span>
-                  <span>18%</span>
+                  <span className="text-[#3D6E4B] font-extrabold">18%</span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-teal-600 rounded-full w-[18%]" />
+                <div className="w-full h-3 bg-[#F8F7F2] border border-[#E2E0D4] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#3D6E4B] rounded-full w-[18%]" />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-bold text-[#1A261D] mb-1.5">
                   <span>Pegawai Negeri / Swasta / Guru</span>
-                  <span>10%</span>
+                  <span className="text-[#526356] font-extrabold">10%</span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-sky-600 rounded-full w-[10%]" />
+                <div className="w-full h-3 bg-[#F8F7F2] border border-[#E2E0D4] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#526356] rounded-full w-[10%]" />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                <div className="flex justify-between text-xs font-bold text-[#1A261D] mb-1.5">
                   <span>Jasa, Pertukangan & Lainnya</span>
-                  <span>7%</span>
+                  <span className="text-[#C89726] font-extrabold">7%</span>
                 </div>
-                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-amber-500 rounded-full w-[7%]" />
+                <div className="w-full h-3 bg-[#F8F7F2] border border-[#E2E0D4] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#C89726] rounded-full w-[7%]" />
                 </div>
               </div>
             </div>
           </div>
 
           {/* Card Sarana & Prasarana */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl border border-[#E2E0D4] p-6 sm:p-8 shadow-xs space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-[#EAF2EB] text-[#1F4D2C] flex items-center justify-center">
                 <Building className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-lg text-slate-900">Sarana & Prasarana Desa</h3>
-                <p className="text-xs text-slate-500">Fasilitas umum penunjang aktivitas warga</p>
+                <h3 className="font-bold text-lg text-[#1A261D]">Sarana & Fasilitas Desa</h3>
+                <p className="text-xs text-[#526356]">Fasilitas umum penunjang aktivitas masyarakat</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                <div className="flex items-center gap-2 text-emerald-700">
+              <div className="p-4 rounded-2xl bg-[#F8F7F2] border border-[#E2E0D4] space-y-1">
+                <div className="flex items-center gap-2 text-[#1F4D2C]">
                   <Building className="w-4 h-4" />
                   <span className="font-bold text-xs">Balai Desa</span>
                 </div>
-                <p className="text-lg font-extrabold text-slate-900">1 Unit</p>
-                <p className="text-[11px] text-slate-500">Pusat pelayanan warga</p>
+                <p className="text-xl font-extrabold text-[#1A261D]">1 Unit</p>
+                <p className="text-[11px] text-[#526356]">Pusat pelayanan warga</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                <div className="flex items-center gap-2 text-sky-700">
+              <div className="p-4 rounded-2xl bg-[#F8F7F2] border border-[#E2E0D4] space-y-1">
+                <div className="flex items-center gap-2 text-[#1F4D2C]">
                   <HeartPulse className="w-4 h-4" />
                   <span className="font-bold text-xs">Posyandu / Polindes</span>
                 </div>
-                <p className="text-lg font-extrabold text-slate-900">2 Pos</p>
-                <p className="text-[11px] text-slate-500">Layanan kesehatan dasar</p>
+                <p className="text-xl font-extrabold text-[#1A261D]">2 Pos</p>
+                <p className="text-[11px] text-[#526356]">Layanan kesehatan dasar</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                <div className="flex items-center gap-2 text-amber-600">
+              <div className="p-4 rounded-2xl bg-[#F8F7F2] border border-[#E2E0D4] space-y-1">
+                <div className="flex items-center gap-2 text-[#1F4D2C]">
                   <GraduationCap className="w-4 h-4" />
                   <span className="font-bold text-xs">PAUD & TK</span>
                 </div>
-                <p className="text-lg font-extrabold text-slate-900">2 Unit</p>
-                <p className="text-[11px] text-slate-500">Pendidikan usia dini</p>
+                <p className="text-xl font-extrabold text-[#1A261D]">2 Unit</p>
+                <p className="text-[11px] text-[#526356]">Pendidikan usia dini</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                <div className="flex items-center gap-2 text-teal-700">
+              <div className="p-4 rounded-2xl bg-[#F8F7F2] border border-[#E2E0D4] space-y-1">
+                <div className="flex items-center gap-2 text-[#1F4D2C]">
                   <Home className="w-4 h-4" />
                   <span className="font-bold text-xs">Masjid & Mushola</span>
                 </div>
-                <p className="text-lg font-extrabold text-slate-900">6 Unit</p>
-                <p className="text-[11px] text-slate-500">Sarana peribadatan</p>
+                <p className="text-xl font-extrabold text-[#1A261D]">6 Unit</p>
+                <p className="text-[11px] text-[#526356]">Sarana peribadatan</p>
               </div>
             </div>
           </div>

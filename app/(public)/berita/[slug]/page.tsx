@@ -7,10 +7,7 @@ import DOMPurify from 'isomorphic-dompurify'
 import {
   Calendar,
   ArrowLeft,
-  Share2,
-  Tag,
   Building2,
-  Clock,
   ChevronRight,
   Newspaper,
 } from 'lucide-react'
@@ -18,7 +15,6 @@ import { getBeritaBySlug, getBeritaPublished } from '@/lib/supabase/queries/publ
 import { formatDate, stripHtml, truncateText } from '@/utils/formatters'
 import type { Berita } from '@/types/database'
 
-// Data cadangan jika artikel diakses dari fallback data
 const fallbackArticles: Record<string, Berita> = {
   'musrenbangdes-desa-bogem-2026': {
     id: '1',
@@ -124,26 +120,23 @@ export default async function DetailBeritaPage({
     notFound()
   }
 
-  // Ambil berita terbaru lainnya untuk sidebar
   const { data: otherNews } = await getBeritaPublished(4)
   const relatedList = otherNews.filter((b) => b.slug !== slug).slice(0, 3)
-
-  // Sanitasi konten HTML untuk keamanan XSS
   const cleanHtml = DOMPurify.sanitize(berita.konten)
 
   const categoryBadge =
     berita.kategori === 'pengumuman'
-      ? 'bg-amber-100 text-amber-800 border-amber-200'
+      ? 'bg-[#FDF6E2] text-[#C89726] border-[#F2DE9C]'
       : berita.kategori === 'kegiatan'
-      ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
-      : 'bg-sky-100 text-sky-800 border-sky-200'
+      ? 'bg-[#EAF2EB] text-[#1F4D2C] border-[#B9D9BD]'
+      : 'bg-slate-100 text-[#1A261D] border-slate-200'
 
   return (
     <div className="space-y-10 pb-24">
       {/* 1. Header Breadcrumb */}
-      <section className="bg-slate-900 text-white py-10 border-b border-slate-800">
+      <section className="bg-[#173C22] text-white py-10 border-b border-[#1F4D2C]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-[#D3E2D6]">
             <Link href="/" className="hover:text-white transition-colors">
               Beranda
             </Link>
@@ -152,17 +145,17 @@ export default async function DetailBeritaPage({
               Berita
             </Link>
             <span>/</span>
-            <span className="text-emerald-400 truncate max-w-xs">{berita.judul}</span>
+            <span className="text-[#C89726] truncate max-w-xs">{berita.judul}</span>
           </div>
 
           <div className="flex items-center gap-3">
             <span
-              className={`inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border ${categoryBadge}`}
+              className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${categoryBadge}`}
             >
               {berita.kategori}
             </span>
-            <div className="flex items-center gap-1.5 text-xs text-slate-400">
-              <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="flex items-center gap-1.5 text-xs text-[#D3E2D6]">
+              <Calendar className="w-3.5 h-3.5 text-[#C89726]" />
               <time dateTime={berita.created_at}>{formatDate(berita.created_at)}</time>
             </div>
           </div>
@@ -171,9 +164,9 @@ export default async function DetailBeritaPage({
             {berita.judul}
           </h1>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400 pt-1">
-            <Building2 className="w-4 h-4 text-emerald-400" />
-            <span>Dipublikasikan oleh: Pemerintah Desa Bogem</span>
+          <div className="flex items-center gap-2 text-xs text-[#D3E2D6] pt-1">
+            <Building2 className="w-4 h-4 text-[#C89726]" />
+            <span>Pemerintah Desa Bogem, Kec. Kawedanan, Kab. Magetan</span>
           </div>
         </div>
       </section>
@@ -182,10 +175,10 @@ export default async function DetailBeritaPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Main Article Content */}
-          <article className="lg:col-span-8 space-y-8 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs">
+          <article className="lg:col-span-8 space-y-8 bg-white rounded-3xl border border-[#E2E0D4] p-6 sm:p-10 shadow-xs">
             {/* Featured Image */}
             {berita.gambar_url && (
-              <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden bg-slate-100 shadow-xs">
+              <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden bg-[#F8F7F2] shadow-2xs">
                 <Image
                   src={berita.gambar_url}
                   alt={berita.judul}
@@ -198,15 +191,15 @@ export default async function DetailBeritaPage({
 
             {/* Sanitized HTML Content */}
             <div
-              className="prose prose-slate max-w-none text-slate-800 text-sm sm:text-base leading-relaxed"
+              className="prose prose-slate max-w-none text-[#1A261D] text-sm sm:text-base leading-relaxed"
               dangerouslySetInnerHTML={{ __html: cleanHtml }}
             />
 
             {/* Bottom Actions */}
-            <div className="pt-8 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+            <div className="pt-8 border-t border-[#E2E0D4] flex flex-wrap items-center justify-between gap-4">
               <Link
                 href="/berita"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#F8F7F2] hover:bg-[#EAF2EB] text-[#1F4D2C] text-xs sm:text-sm font-bold border border-[#E2E0D4] transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Kembali ke Daftar Berita</span>
@@ -216,22 +209,22 @@ export default async function DetailBeritaPage({
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
-            {/* Widget Berita Terkait / Lainnya */}
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
-              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                <Newspaper className="w-5 h-5 text-emerald-700" />
-                <h2 className="font-bold text-slate-900 text-base">Berita Terkait Lainnya</h2>
+            {/* Widget Berita Terkait */}
+            <div className="bg-white rounded-3xl border border-[#E2E0D4] p-6 shadow-xs space-y-5">
+              <div className="flex items-center gap-2 border-b border-[#E2E0D4]/60 pb-3">
+                <Newspaper className="w-5 h-5 text-[#1F4D2C]" />
+                <h2 className="font-bold text-[#1A261D] text-base">Berita Terkait Lainnya</h2>
               </div>
 
               {relatedList.length === 0 ? (
-                <p className="text-xs text-slate-500">Belum ada berita lainnya.</p>
+                <p className="text-xs text-[#526356]">Belum ada berita lainnya.</p>
               ) : (
                 <div className="space-y-4">
                   {relatedList.map((item) => (
                     <Link
                       key={item.id}
                       href={`/berita/${item.slug}`}
-                      className="group flex items-start gap-3 hover:bg-slate-50 p-2 rounded-xl transition-colors"
+                      className="group flex items-start gap-3 hover:bg-[#F8F7F2] p-2.5 rounded-xl transition-colors"
                     >
                       {item.gambar_url ? (
                         <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-100 shrink-0">
@@ -243,15 +236,15 @@ export default async function DetailBeritaPage({
                           />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+                        <div className="w-16 h-16 rounded-lg bg-[#EAF2EB] text-[#1F4D2C] flex items-center justify-center shrink-0">
                           <Newspaper className="w-6 h-6" />
                         </div>
                       )}
                       <div className="space-y-1 min-w-0">
-                        <p className="text-xs text-slate-400 font-medium">
+                        <p className="text-[11px] text-[#526356] font-medium">
                           {formatDate(item.created_at)}
                         </p>
-                        <h3 className="font-bold text-xs sm:text-sm text-slate-900 line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                        <h3 className="font-bold text-xs sm:text-sm text-[#1A261D] line-clamp-2 group-hover:text-[#1F4D2C] transition-colors leading-snug">
                           {item.judul}
                         </h3>
                       </div>
@@ -262,19 +255,19 @@ export default async function DetailBeritaPage({
             </div>
 
             {/* Widget Balai Desa */}
-            <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-3xl p-6 shadow-xs space-y-4">
-              <span className="inline-block px-3 py-1 rounded-full bg-emerald-700 text-[11px] font-bold uppercase tracking-wider text-emerald-200">
+            <div className="bg-[#173C22] text-white rounded-3xl p-6 shadow-xs space-y-4 border border-[#296338]">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#1F4D2C] text-[11px] font-bold uppercase tracking-wider text-[#C89726] border border-[#3D6E4B]">
                 Pemerintah Desa Bogem
               </span>
-              <h3 className="font-bold text-lg">Pusat Layanan Warga</h3>
-              <p className="text-xs text-emerald-100 leading-relaxed">
-                Butuh surat pengantar atau pelayanan administrasi? Kunjungi kantor balai desa pada jam kerja (Senin - Jumat 08:00 - 15:00 WIB).
+              <h3 className="font-bold text-lg text-white">Pusat Layanan Warga</h3>
+              <p className="text-xs text-[#D3E2D6] leading-relaxed">
+                Butuh surat pengantar atau pelayanan administrasi? Kunjungi kantor balai desa pada jam kerja (Senin – Jumat 08:00 – 15:00 WIB).
               </p>
               <Link
                 href="/kontak"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300 hover:text-white"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C89726] hover:text-white"
               >
-                <span>Lihat Informasi Kontak</span>
+                <span>Lihat Informasi Kontak Balai Desa</span>
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>

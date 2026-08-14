@@ -15,7 +15,6 @@ import { createClient } from '@/lib/supabase/client'
 import { formatDate } from '@/utils/formatters'
 import type { Galeri } from '@/types/database'
 
-// Data cadangan jika galeri di database masih kosong
 const defaultGaleri: Galeri[] = [
   {
     id: '1',
@@ -94,7 +93,6 @@ export default function PublicGaleriPage() {
     fetchPhotos()
   }, [])
 
-  // Dapatkan daftar album unik
   const albumList = Array.from(new Set(photos.map((p) => p.judul_album)))
 
   const filteredPhotos =
@@ -105,28 +103,28 @@ export default function PublicGaleriPage() {
   return (
     <div className="space-y-12 pb-24">
       {/* 1. Header Banner */}
-      <section className="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-slate-900 text-white py-16 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+      <section className="relative bg-gradient-to-br from-[#173C22] via-[#1F4D2C] to-[#122E1A] text-white py-16 overflow-hidden border-b border-[#296338]">
+        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex items-center gap-2 text-emerald-300 text-xs sm:text-sm font-medium mb-4">
+          <div className="flex items-center gap-2 text-[#D3E2D6] text-xs sm:text-sm font-medium mb-4">
             <Link href="/" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" />
               <span>Beranda</span>
             </Link>
             <span>/</span>
-            <span className="text-white">Galeri Kegiatan</span>
+            <span className="text-[#C89726]">Galeri Dokumentasi</span>
           </div>
 
           <div className="max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-700/60 border border-emerald-500/30 text-emerald-200 text-xs font-semibold">
-              <ImageIcon className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#173C22]/90 border border-[#3D6E4B] text-[#EAF2EB] text-xs font-semibold">
+              <ImageIcon className="w-3.5 h-3.5 text-[#C89726]" />
               <span>Dokumentasi Desa</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
               Galeri Kegiatan Desa Bogem
             </h1>
-            <p className="text-emerald-100 text-sm sm:text-base leading-relaxed">
-              Kumpulan dokumentasi foto pembangunan, kegiatan sosial kemasyarakatan, serta potensi alam dan budaya di Desa Bogem, Kec. Kawedanan.
+            <p className="text-[#EAF2EB]/90 text-sm sm:text-base leading-relaxed">
+              Kumpulan dokumentasi foto pembangunan sarana desa, kegiatan sosial kemasyarakatan, serta keasrian alam di Desa Bogem, Kec. Kawedanan.
             </p>
           </div>
         </div>
@@ -135,13 +133,13 @@ export default function PublicGaleriPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* 2. Album Filter Tabs */}
         {albumList.length > 1 && (
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-2 overflow-x-auto">
+          <div className="bg-white p-4 rounded-2xl border border-[#E2E0D4] shadow-xs flex items-center gap-2 overflow-x-auto">
             <button
               onClick={() => setSelectedAlbum('all')}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 cursor-pointer ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 cursor-pointer ${
                 selectedAlbum === 'all'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#1F4D2C] text-white shadow-xs'
+                  : 'bg-[#F8F7F2] text-[#526356] hover:text-[#1A261D] hover:bg-[#EAF2EB]'
               }`}
             >
               Semua Foto ({photos.length})
@@ -150,10 +148,10 @@ export default function PublicGaleriPage() {
               <button
                 key={album}
                 onClick={() => setSelectedAlbum(album)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 cursor-pointer ${
                   selectedAlbum === album
-                    ? 'bg-emerald-700 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    ? 'bg-[#1F4D2C] text-white shadow-xs'
+                    : 'bg-[#F8F7F2] text-[#526356] hover:text-[#1A261D] hover:bg-[#EAF2EB]'
                 }`}
               >
                 {album} ({photos.filter((p) => p.judul_album === album).length})
@@ -164,50 +162,50 @@ export default function PublicGaleriPage() {
 
         {/* 3. Photos Grid */}
         {isLoading ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center text-slate-400 text-sm">
+          <div className="bg-white rounded-3xl border border-[#E2E0D4] p-12 text-center text-[#526356] text-sm">
             Memuat galeri foto...
           </div>
         ) : filteredPhotos.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-3">
-            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+          <div className="bg-white rounded-3xl border border-[#E2E0D4] p-12 text-center space-y-3">
+            <div className="w-12 h-12 rounded-full bg-[#F8F7F2] text-[#526356] flex items-center justify-center mx-auto">
               <FolderOpen className="w-6 h-6" />
             </div>
-            <p className="text-base font-semibold text-slate-800">Belum ada foto dalam album ini</p>
-            <p className="text-xs text-slate-500">Pilih album lain untuk melihat dokumentasi.</p>
+            <p className="text-base font-bold text-[#1A261D]">Belum ada foto dalam album ini</p>
+            <p className="text-xs text-[#526356]">Pilih album lain untuk melihat dokumentasi.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filteredPhotos.map((photo) => (
               <div
                 key={photo.id}
                 onClick={() => setActivePhoto(photo)}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition-all cursor-pointer flex flex-col"
+                className="group bg-white rounded-2xl border border-[#E2E0D4] overflow-hidden shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col"
               >
-                <div className="relative h-64 w-full bg-slate-100 overflow-hidden">
+                <div className="relative h-64 w-full bg-[#F8F7F2] overflow-hidden">
                   <Image
                     src={photo.gambar_url}
                     alt={photo.judul_album}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/30 transition-colors flex items-center justify-center">
-                    <div className="w-10 h-10 rounded-full bg-white/90 text-slate-900 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+                  <div className="absolute inset-0 bg-[#173C22]/0 group-hover:bg-[#173C22]/30 transition-colors flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-white text-[#1F4D2C] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
                       <Maximize2 className="w-5 h-5" />
                     </div>
                   </div>
                   <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-slate-900/80 text-white backdrop-blur-sm shadow-xs">
+                    <span className="px-2.5 py-1 rounded-md text-[11px] font-extrabold uppercase tracking-wider bg-[#173C22] text-white shadow-xs">
                       {photo.judul_album}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-4 flex-1 flex flex-col justify-between space-y-2 bg-white">
-                  <p className="text-xs sm:text-sm font-medium text-slate-800 line-clamp-2 leading-relaxed">
+                  <p className="text-xs sm:text-sm font-medium text-[#1A261D] line-clamp-2 leading-relaxed">
                     {photo.deskripsi || 'Dokumentasi kegiatan Pemerintah Desa Bogem.'}
                   </p>
-                  <div className="flex items-center gap-1.5 text-[11px] text-slate-400 pt-2 border-t border-slate-100">
-                    <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <div className="flex items-center gap-1.5 text-[11px] text-[#526356] pt-2 border-t border-[#E2E0D4]/60">
+                    <Calendar className="w-3.5 h-3.5 text-[#1F4D2C]" />
                     <time dateTime={photo.created_at}>{formatDate(photo.created_at)}</time>
                   </div>
                 </div>
@@ -224,20 +222,18 @@ export default function PublicGaleriPage() {
           onClick={() => setActivePhoto(null)}
         >
           <div
-            className="relative max-w-4xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 animate-in zoom-in-95 text-white"
+            className="relative max-w-4xl w-full bg-[#173C22] rounded-3xl overflow-hidden shadow-2xl border border-[#296338] animate-in zoom-in-95 text-white"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
               onClick={() => setActivePhoto(null)}
-              className="absolute top-4 right-4 z-20 p-2.5 bg-slate-800/80 hover:bg-slate-700 text-white rounded-full transition-colors cursor-pointer"
+              className="absolute top-4 right-4 z-20 p-2.5 bg-[#1F4D2C] hover:bg-[#173C22] text-white rounded-full transition-colors cursor-pointer border border-[#3D6E4B]"
               title="Tutup"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Photo Container */}
-            <div className="relative h-80 sm:h-[480px] w-full bg-slate-950">
+            <div className="relative h-80 sm:h-[480px] w-full bg-[#122E1A]">
               <Image
                 src={activePhoto.gambar_url}
                 alt={activePhoto.judul_album}
@@ -246,17 +242,16 @@ export default function PublicGaleriPage() {
               />
             </div>
 
-            {/* Description Bar */}
-            <div className="p-6 bg-slate-900 border-t border-slate-800 space-y-2">
+            <div className="p-6 bg-[#173C22] border-t border-[#1F4D2C] space-y-2">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-emerald-700 text-white">
+                <span className="px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-[#1F4D2C] text-[#C89726] border border-[#3D6E4B]">
                   {activePhoto.judul_album}
                 </span>
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-[#D3E2D6]">
                   {formatDate(activePhoto.created_at)}
                 </span>
               </div>
-              <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+              <p className="text-sm sm:text-base text-[#EAF2EB] leading-relaxed">
                 {activePhoto.deskripsi || 'Dokumentasi kegiatan resmi Pemerintah Desa Bogem.'}
               </p>
             </div>
