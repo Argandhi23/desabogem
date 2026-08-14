@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #166534; /* Emerald 800 */
+    --primary-hover: #14532d; /* Emerald 900 */
+    --primary-light: #dcfce7; /* Emerald 100 */
+    --secondary: #0284c7; /* Sky 600 */
+    --accent: #f59e0b; /* Amber 500 */
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-main);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
