@@ -58,6 +58,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/statistik" className="hover:text-emerald-400 transition-colors">
+                  Data & Statistik Desa
+                </Link>
+              </li>
+              <li>
                 <Link href="/kontak" className="hover:text-emerald-400 transition-colors">
                   Kontak & Lokasi Kantor
                 </Link>

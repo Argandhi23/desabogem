@@ -10,6 +10,7 @@ import {
   Building2,
   Newspaper,
   Image as ImageIcon,
+  BarChart3,
   Phone,
   ShieldCheck,
 } from 'lucide-react'
@@ -19,6 +20,7 @@ const navLinks = [
   { name: 'Profil Desa', href: '/profil', icon: Building2 },
   { name: 'Berita', href: '/berita', icon: Newspaper },
   { name: 'Galeri', href: '/galeri', icon: ImageIcon },
+  { name: 'Statistik', href: '/statistik', icon: BarChart3 },
   { name: 'Kontak', href: '/kontak', icon: Phone },
 ]
 

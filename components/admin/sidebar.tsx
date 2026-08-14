@@ -8,6 +8,7 @@ import {
   Newspaper,
   Image as ImageIcon,
   Building2,
+  BarChart3,
   ExternalLink,
   LogOut,
 } from 'lucide-react'
@@ -18,6 +19,7 @@ const menuItems = [
   { name: 'Kelola Berita', href: '/admin/berita', icon: Newspaper },
   { name: 'Kelola Galeri', href: '/admin/galeri', icon: ImageIcon },
   { name: 'Profil Desa', href: '/admin/profil', icon: Building2 },
+  { name: 'Data Statistik', href: '/admin/statistik', icon: BarChart3 },
 ]
 
 export function AdminSidebar({
